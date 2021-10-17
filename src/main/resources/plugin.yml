@@ -5,7 +5,7 @@ author: Hibi_10000
 api-version: 1.16
 description: |
   §aDistribution:§b https://dev.bukkit.org/projects/signincommand
-  §bCopyright © 2021 Hibi_10000 GPL v3.0 License
+  §bCopyright © 2021 Hibi_10000 All rights reserved.
 commands:
   sic:
     aliases: [sc, signincommand, signcommand]
