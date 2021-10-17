@@ -1,12 +1,12 @@
 # SignInCommand
 Embed a command inside a sign and execute the command in line order on the sign when you right-click.
-
 コマンドを看板の中に埋め込み、右クリックしたときにそのコマンドを看板の行順に実行します。
 
+The embedded command runs as a right-click player, ignoring all permissions.
+埋め込まれたコマンドは、すべての権限を無視して、右クリックしたプレイヤーとして実行されます。
 
-
-Only available to operators. オペレーターのみ使用可能です。
-
+The plugins commands is available only to the operators. 
+このプラグインのコマンドはオペレーターのみが使用可能です。
 
 
 Commands:
