@@ -24,4 +24,3 @@ Commands:
   /sic delete [SignLine:<1|2|3|4>]
 
                 - Delete the command embedded in the sign. 看板に埋め込まれたコマンドを削除します。
-
