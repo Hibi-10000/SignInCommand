@@ -1,4 +1,4 @@
-package jp.minecraft.hibi_10000.plugins;
+package com.github.hibi_10000.plugins.signincommand;
 
 import java.util.ArrayList;
 import java.util.List;
