@@ -1,6 +1,6 @@
 name: SignInCommand
 main: jp.minecraft.hibi_10000.plugins.SignInCommand
-version: 1.0.0
+version: ${project.version}
 author: Hibi_10000
 api-version: 1.16
 description: |
