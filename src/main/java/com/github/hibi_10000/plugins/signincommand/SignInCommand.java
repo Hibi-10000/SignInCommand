@@ -1,6 +1,7 @@
 package com.github.hibi_10000.plugins.signincommand;
 
-import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import org.bukkit.block.Block;
@@ -18,17 +19,7 @@ import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.chat.hover.content.Text;
 
 public class SignInCommand extends JavaPlugin {
-	
-	@Override
-	public void onEnable() {
-		
-	}
-	
-	@Override
-	public void onDisable() {
-		
-	}
-	
+    @Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if (cmd.getName().equalsIgnoreCase("sic")) {
 			if (args.length == 0) {
@@ -419,55 +410,29 @@ public class SignInCommand extends JavaPlugin {
 	
 	@Override
 	public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
-		List<String> list = new ArrayList<String>();
-		
-		//sender.sendMessage(String.valueOf(args.length));
-		
+        if (command.getName().equalsIgnoreCase("sic")) return null;
+        if (sender.hasPermission("signincommand.setup")) return Collections.emptyList();
 		if (args.length == 2) {
-			if (command.getName().equalsIgnoreCase("sic") 
-					&& (args[0].equalsIgnoreCase("set") || args[0].equalsIgnoreCase("delete") || args[0].equalsIgnoreCase("help") || args[0].equalsIgnoreCase("list")) 
-					&& sender.hasPermission("signincommand.setup")) {
-				list.removeAll(list);
+			if (args[0].equalsIgnoreCase("set") || args[0].equalsIgnoreCase("delete") || args[0].equalsIgnoreCase("help") || args[0].equalsIgnoreCase("list")
+					) {
 				if (args[0].equalsIgnoreCase("help") || args[0].equalsIgnoreCase("list")) {
-					return list;
+					return Collections.emptyList();
 				}
-				list.add("1");
-				list.add("2");
-				list.add("3");
-				list.add("4");
-				return list;
+				return Arrays.asList("1", "2", "3", "4");
 			}
-			list.removeAll(list);
-			return list;
+			return Collections.emptyList();
 		} else if (args.length == 3) {
-			if (command.getName().equalsIgnoreCase("sic") 
-				&& args[2].startsWith("/")) {
-				list.removeAll(list);
-				return list;
-				
-			} else if (command.getName().equalsIgnoreCase("sic") 
-					&& (args[1].equalsIgnoreCase("1") || args[1].equalsIgnoreCase("2") || args[1].equalsIgnoreCase("3") || args[1].equalsIgnoreCase("4")) 
-					&& sender.hasPermission("signincommand.setup") && args[0].equalsIgnoreCase("set")) {
-				list.removeAll(list);
-				list.add("/");
-				return list;
+			if (args[2].startsWith("/")) {
+				return Collections.emptyList();
+			} else if ((args[1].equalsIgnoreCase("1") || args[1].equalsIgnoreCase("2") || args[1].equalsIgnoreCase("3") || args[1].equalsIgnoreCase("4"))
+					&& args[0].equalsIgnoreCase("set")) {
+                return Collections.singletonList("/");
 			}
-			list.removeAll(list);
-			return list;
+			return Collections.emptyList();
 		} else if (args.length == 1) {
-			if (command.getName().equalsIgnoreCase("sic") 
-					&& sender.hasPermission("signincommand.setup")) {
-				list.removeAll(list);
-				list.add("set");
-				list.add("delete");
-				list.add("list");
-				list.add("help");
-				return list;
-			}
+            return Arrays.asList("set", "delete", "list", "help");
 		}
-		list.removeAll(list);
-		return list;
-		//return null;
+		return Collections.emptyList();
 	}
 	
 }
