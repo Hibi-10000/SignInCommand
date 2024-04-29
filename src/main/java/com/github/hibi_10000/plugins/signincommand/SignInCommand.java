@@ -19,6 +19,8 @@ import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.chat.hover.content.Text;
 
 public class SignInCommand extends JavaPlugin {
+    private SignUtil signUtil = new SignUtil();
+
     @Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if (cmd.getName().equalsIgnoreCase("sic")) {
@@ -112,8 +114,6 @@ public class SignInCommand extends JavaPlugin {
 							
 							//p.performCommand("gm 1");
 							//BlockData bd = target.getBlockData();
-							Sign s = (Sign) target.getState();
-							String[] signline = s.getLines();
 							
 							if (!args[2].startsWith("/")) {
 								sender.sendMessage("§a[SignInCommand] §c埋め込むコマンドにはコマンドの接頭辞\"/\"を必ず付けてください。");
@@ -149,80 +149,20 @@ public class SignInCommand extends JavaPlugin {
 							
 							return true;
 							*/
-							
-							
-							try {
-								if (args[1].equalsIgnoreCase("1")) {
-									sender.sendMessage("§a[SignInCommand]");
-									
-									getServer().dispatchCommand(sender, 
-											"data merge block " 
-												+ target.getX() + " " + target.getY() + " " + target.getZ() 
-												+ " {Text1:'{\"text\":\"" + signline[0] 
-												+ "\",\"clickEvent\":{\"action\":\"run_command\",\"value\":\"" 
-												+ incmd + "\"}}'}"
-											);
-									
-									sender.sendMessage("§a[SignInCommand] §b" + target.getX() + " " + target.getY() + " " + target.getZ() 
-															+ " の看板の" + args[1] + "行目にコマンドを§a設定§bしました。");
-									return true;
-									
-								} else if (args[1].equalsIgnoreCase("2")) {
-									sender.sendMessage("§a[SignInCommand]");
-									
-									getServer().dispatchCommand(sender, 
-											"data merge block " 
-												+ target.getX() + " " + target.getY() + " " + target.getZ() 
-												+ " {Text2:'{\"text\":\"" + signline[1] 
-												+ "\",\"clickEvent\":{\"action\":\"run_command\",\"value\":\"" 
-												+ incmd + "\"}}'}"
-											);
-									
-									sender.sendMessage("§a[SignInCommand] §b" + target.getX() + " " + target.getY() + " " + target.getZ() 
-															+ " の看板の" + args[1] + "行目にコマンドを§a設定§bしました。");
-									return true;
-									
-								} else if (args[1].equalsIgnoreCase("3")) {
-									sender.sendMessage("§a[SignInCommand]");
-									
-									getServer().dispatchCommand(sender, 
-											"data merge block " 
-												+ target.getX() + " " + target.getY() + " " + target.getZ() 
-												+ " {Text3:'{\"text\":\"" + signline[2] 
-												+ "\",\"clickEvent\":{\"action\":\"run_command\",\"value\":\"" 
-												+ incmd + "\"}}'}"
-											);
-									
-									sender.sendMessage("§a[SignInCommand] §b" + target.getX() + " " + target.getY() + " " + target.getZ() 
-															+ " の看板の" + args[1] + "行目にコマンドを§a設定§bしました。");
-									return true;
-									
-								} else if (args[1].equalsIgnoreCase("4")) {
-									sender.sendMessage("§a[SignInCommand]");
-									
-									getServer().dispatchCommand(sender, 
-											"data merge block " 
-												+ target.getX() + " " + target.getY() + " " + target.getZ() 
-												+ " {Text4:'{\"text\":\"" + signline[3] 
-												+ "\",\"clickEvent\":{\"action\":\"run_command\",\"value\":\"" 
-												+ incmd + "\"}}'}"
-											);
-									
-									sender.sendMessage("§a[SignInCommand] §b" + target.getX() + " " + target.getY() + " " + target.getZ() 
-															+ " の看板の" + args[1] + "行目にコマンドを§a設定§bしました。");
-									return true;
-									
-								}
-								TextComponent cmdhelp = new TextComponent("§a[SignInCommand] §cコマンドの引数が間違っています。§b/" + label +" help §eで使用法を表示します。");
-								cmdhelp.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text("§aクリックで§b\"/" + label + " help\"§aを実行")));
-								cmdhelp.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/" + label + " help"));
-								sender.spigot().sendMessage(cmdhelp);
-								return false;
-								
-							} catch (CommandException e) {
-								sender.sendMessage("§a[SignInCommand] §cCommandExceptionERROR");
-								return false;
-							}
+
+
+                            if (args[1].equals("1") || args[1].equals("2") || args[1].equals("3") || args[1].equals("4")) {
+                                int line = Integer.parseInt(args[1]);
+                                signUtil.setCommand(target, line, incmd);
+                                sender.sendMessage("§a[SignInCommand] §b" + target.getX() + " " + target.getY() + " " + target.getZ()
+                                    + " の看板の" + args[1] + "行目にコマンドを§a設定§bしました。");
+                                return true;
+                            }
+                            TextComponent cmdhelp = new TextComponent("§a[SignInCommand] §cコマンドの引数が間違っています。§b/" + label +" help §eで使用法を表示します。");
+                            cmdhelp.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text("§aクリックで§b\"/" + label + " help\"§aを実行")));
+                            cmdhelp.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/" + label + " help"));
+                            sender.spigot().sendMessage(cmdhelp);
+                            return false;
 						}
 						sender.sendMessage("§a[SignInCommand] §e看板にカーソルを合わせて実行してください。");
 						return false;
