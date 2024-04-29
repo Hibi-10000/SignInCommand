@@ -78,9 +78,8 @@ public class SignInCommand extends JavaPlugin {
 				
 				sender.sendMessage("");
 				
-				//sender.sendMessage(" §aDistribution:§b https://dev.bukkit.org/projects/signincommand");
+				//sender.sendMessage(" §aDistribution:§b https://dev.bukkit.org/projects/sign-in-command");
 				//sender.sendMessage(" §bCreatedBy: Hibi_10000");
-				//sender.sendMessage(" §bCopyright © 2021 Hibi_10000 All rights reserved.");
 				return true;
 			} else if (args[0].equalsIgnoreCase("set")) {
 				if (sender instanceof Player) {

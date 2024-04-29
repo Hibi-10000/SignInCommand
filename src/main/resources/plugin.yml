@@ -3,9 +3,7 @@ main: com.github.hibi_10000.plugins.signincommand.SignInCommand
 version: ${project.version}
 author: Hibi_10000
 api-version: 1.16
-description: |
-  §aDistribution:§b https://dev.bukkit.org/projects/signincommand
-  §bCopyright © 2021 Hibi_10000 All rights reserved.
+website: https://dev.bukkit.org/projects/sign-in-command
 commands:
   sic:
     aliases: [sc, signincommand, signcommand]
