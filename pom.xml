@@ -39,21 +39,10 @@
             </goals>
             <configuration>
               <outputDirectory>${project.build.directory}/classes</outputDirectory>
-              <includeArtifactIds>nbteditor</includeArtifactIds>
+              <includeScope>runtime</includeScope>
             </configuration>
           </execution>
         </executions>
-      </plugin>
-      <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-assembly-plugin -->
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-assembly-plugin</artifactId>
-        <version>3.6.0</version>
-        <configuration>
-          <descriptorRefs>
-            <descriptorRef>nbteditor</descriptorRef>
-          </descriptorRefs>
-        </configuration>
       </plugin>
     </plugins>
   </build>
