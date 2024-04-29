@@ -86,9 +86,10 @@ public class SignInCommand extends JavaPlugin {
             } else if (args[0].equalsIgnoreCase("set")) {
                 if (sender instanceof Player) {
                     Player p = (Player) sender;
-                    if ((args.length >= 3)) {
+                    if (args.length >= 3) {
                         Block target = p.getTargetBlock(null, 4);
-                        if (target.getType().name().contains("SIGN")/* == Material.ACACIA_SIGN
+                        if (target.getType().name().contains("SIGN")
+                            /*target.getType() == Material.ACACIA_SIGN
                                 || target.getType() == Material.ACACIA_WALL_SIGN
                                 || target.getType() == Material.BIRCH_SIGN
                                 || target.getType() == Material.BIRCH_WALL_SIGN
@@ -108,10 +109,6 @@ public class SignInCommand extends JavaPlugin {
                                 || target.getType() == Material.WARPED_SIGN
                                 || target.getType() == Material.WARPED_WALL_SIGN*/) {
 
-
-                            //p.performCommand("gm 1");
-                            //BlockData bd = target.getBlockData();
-
                             if (!args[2].startsWith("/")) {
                                 sender.sendMessage("§a[SignInCommand] §c埋め込むコマンドにはコマンドの接頭辞\"/\"を必ず付けてください。");
                                 return false;
@@ -120,33 +117,13 @@ public class SignInCommand extends JavaPlugin {
                             String incmd = args[2].replace("/", "");
                             int roopargs = 3;
                             while (!(roopargs == args.length || args.length == 3)) {
-                                //sender.sendMessage(args[roopargs]);
                                 incmd = incmd + " " + args[roopargs];
-                                //sender.sendMessage(incmd);
                                 roopargs++;
                             }
                             while (incmd.endsWith("\\")) {
                                 incmd = incmd.replaceAll("\\\\$", "");
                             }
                             incmd = incmd.replace("\"", "");
-
-                            /*
-                            //sender.sendMessage(NBTEditor.getNBTCompound(target,"Text1").toJson());
-                            sender.sendMessage(NBTEditor.getString(target, "Text1"));
-                            //sender.sendMessage(NBTEditor.getNBTCompound("").toJson());
-
-                            //NBTCompound nbtc = //NBTEditor.getEmptyNBTCompound();
-                            //NBTEditor.getNBTCompound("'{\"text\":\"" + signline[0]+ "\",\"clickEvent\":{\"action\":\"run_command\",\"value\":\"" + incmd + "\"}}'");//.fromJson("");
-
-
-
-                            //NBTEditor.set(target, "'{\"text\":\"" + signline[0]+ "\",\"clickEvent\":{\"action\":\"run_command\",\"value\":\"" + incmd + "\"}}'", "Text1");
-                            NBTEditor.set(target, "{BlockEntityTag:{Text1:'{\"text\":\"" + signline[0]+ "\",\"clickEvent\":{\"action\":\"run_command\",\"value\":\"" + incmd + "\"}}'}}", "");
-                            sender.sendMessage(NBTEditor.getNBTCompound(target,"Text1").toJson());
-
-                            return true;
-                            */
-
 
                             if (args[1].equals("1") || args[1].equals("2") || args[1].equals("3") || args[1].equals("4")) {
                                 int line = Integer.parseInt(args[1]);
@@ -175,7 +152,7 @@ public class SignInCommand extends JavaPlugin {
             } else if (args[0].equalsIgnoreCase("delete")) {
                 if (sender instanceof Player) {
                     Player p = (Player) sender;
-                    if ((args.length >= 2)) {
+                    if (args.length >= 2) {
                         Block target = p.getTargetBlock(null, 4);
                         if (target.getType().name().contains("SIGN")) {
                             Sign s = (Sign) target.getState();
@@ -260,7 +237,7 @@ public class SignInCommand extends JavaPlugin {
             } else if (args[0].equalsIgnoreCase("list")) {
                 if (sender instanceof Player) {
                     Player p = (Player) sender;
-                    if ((args.length == 1)) {
+                    if (args.length == 1) {
                         Block target = p.getTargetBlock(null, 4);
                         if (target.getType().name().contains("SIGN")) {
 
