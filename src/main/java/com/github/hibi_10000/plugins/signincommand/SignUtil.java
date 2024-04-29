@@ -13,6 +13,18 @@ public class SignUtil {
         NBTEditor.set(target, "'" + getJsonText(s.getLine(line - 1), command) + "'", "Text" + line);
     }
 
+    public void removeCommand(Block target, int line) {
+        Sign s = (Sign) target.getState();
+        NBTEditor.set(target, "'" + getJsonText(s.getLine(line - 1)) + "'", "Text" + line);
+    }
+
+    private String getJsonText(String text) {
+        JsonObject obj = new JsonObject();
+        obj.addProperty("text", text);
+        Gson gson = new GsonBuilder().create();
+        return gson.toJson(obj);
+    }
+
     private String getJsonText(String text, String command) {
         JsonObject obj = new JsonObject();
         obj.addProperty("text", text);

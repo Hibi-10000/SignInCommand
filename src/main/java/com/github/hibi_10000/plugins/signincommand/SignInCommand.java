@@ -5,9 +5,7 @@ import java.util.Collections;
 import java.util.List;
 
 import org.bukkit.block.Block;
-import org.bukkit.block.Sign;
 import org.bukkit.command.Command;
-import org.bukkit.command.CommandException;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -155,73 +153,18 @@ public class SignInCommand extends JavaPlugin {
                     if (args.length >= 2) {
                         Block target = p.getTargetBlock(null, 4);
                         if (target.getType().name().contains("SIGN")) {
-                            Sign s = (Sign) target.getState();
-                            String[] signline = s.getLines();
-
-                            try {
-                                if (args[1].equalsIgnoreCase("1")) {
-                                    //sender.sendMessage("§a[SignInCommand]");
-
-                                    getServer().dispatchCommand(sender,
-                                        "data merge block "
-                                            + target.getX() + " " + target.getY() + " " + target.getZ()
-                                            + " {Text1:'{\"text\":\"" + signline[0] + "\"}'}"
-                                    );
-
-                                    sender.sendMessage("§a[SignInCommand] §b" + target.getX() + " " + target.getY() + " " + target.getZ()
-                                        + " の看板の" + args[1] + "行目のコマンドを§c削除§bしました。");
-                                    return true;
-
-                                } else if (args[1].equalsIgnoreCase("2")) {
-                                    //sender.sendMessage("§a[SignInCommand]");
-
-                                    getServer().dispatchCommand(sender,
-                                        "data merge block "
-                                            + target.getX() + " " + target.getY() + " " + target.getZ()
-                                            + " {Text2:'{\"text\":\"" + signline[1] + "\"}'}"
-                                    );
-
-                                    sender.sendMessage("§a[SignInCommand] §b" + target.getX() + " " + target.getY() + " " + target.getZ()
-                                        + " の看板の" + args[1] + "行目のコマンドを§c削除§bしました。");
-                                    return true;
-
-                                } else if (args[1].equalsIgnoreCase("3")) {
-                                    //sender.sendMessage("§a[SignInCommand]");
-
-                                    getServer().dispatchCommand(sender,
-                                        "data merge block "
-                                            + target.getX() + " " + target.getY() + " " + target.getZ()
-                                            + " {Text3:'{\"text\":\"" + signline[2] + "\"}'}"
-                                    );
-
-                                    sender.sendMessage("§a[SignInCommand] §b" + target.getX() + " " + target.getY() + " " + target.getZ()
-                                        + " の看板の" + args[1] + "行目のコマンドを§c削除§bしました。");
-                                    return true;
-
-                                } else if (args[1].equalsIgnoreCase("4")) {
-                                    //sender.sendMessage("§a[SignInCommand]");
-
-                                    getServer().dispatchCommand(sender,
-                                        "data merge block "
-                                            + target.getX() + " " + target.getY() + " " + target.getZ()
-                                            + " {Text4:'{\"text\":\"" + signline[3] + "\"}'}"
-                                    );
-
-                                    sender.sendMessage("§a[SignInCommand] §b" + target.getX() + " " + target.getY() + " " + target.getZ()
-                                        + " の看板の" + args[1] + "行目のコマンドを§c削除§bしました。");
-                                    return true;
-
-                                }
-                                TextComponent cmdhelp = new TextComponent("§a[SignInCommand] §cコマンドの引数が間違っています。§b/" + label + " help §eで使用法を表示します。");
-                                cmdhelp.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text("§aクリックで§b\"/" + label + " help\"§aを実行")));
-                                cmdhelp.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/" + label + " help"));
-                                sender.spigot().sendMessage(cmdhelp);
-                                return false;
-
-                            } catch (CommandException e) {
-                                sender.sendMessage("§a[SignInCommand] §cCommandExceptionERROR");
-                                return false;
+                            if (args[1].equals("1") || args[1].equals("2") || args[1].equals("3") || args[1].equals("4")) {
+                                int line = Integer.parseInt(args[1]);
+                                signUtil.removeCommand(target, line);
+                                sender.sendMessage("§a[SignInCommand] §b" + target.getX() + " " + target.getY() + " " + target.getZ()
+                                    + " の看板の" + args[1] + "行目のコマンドを§c削除§bしました。");
+                                return true;
                             }
+                            TextComponent cmdhelp = new TextComponent("§a[SignInCommand] §cコマンドの引数が間違っています。§b/" + label + " help §eで使用法を表示します。");
+                            cmdhelp.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text("§aクリックで§b\"/" + label + " help\"§aを実行")));
+                            cmdhelp.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/" + label + " help"));
+                            sender.spigot().sendMessage(cmdhelp);
+                            return false;
                         }
                         sender.sendMessage("§a[SignInCommand] §e看板にカーソルを合わせて実行してください。");
                         return false;
