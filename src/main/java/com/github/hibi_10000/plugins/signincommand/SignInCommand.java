@@ -10,7 +10,6 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import io.github.bananapuncher714.nbteditor.NBTEditor;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
@@ -192,58 +191,18 @@ public class SignInCommand extends JavaPlugin {
                                 + target.getX() + " " + target.getY() + " " + target.getZ()));
                             sender.spigot().sendMessage(message);
 
-                            String text1 = NBTEditor.getString(target, "Text1");
-                            String text2 = NBTEditor.getString(target, "Text2");
-                            String text3 = NBTEditor.getString(target, "Text3");
-                            String text4 = NBTEditor.getString(target, "Text4");
-
-                            if (!(text1.startsWith("{\"clickEvent\":{\"action\":\"run_command\",\"value\":\"")
-                                || text2.startsWith("{\"clickEvent\":{\"action\":\"run_command\",\"value\":\"")
-                                || text3.startsWith("{\"clickEvent\":{\"action\":\"run_command\",\"value\":\"")
-                                || text4.startsWith("{\"clickEvent\":{\"action\":\"run_command\",\"value\":\"")
-                            )) {
+                            if (!signUtil.hasCommand(target)) {
                                 sender.sendMessage("§c この看板にコマンドは設定されていません。");
                                 return true;
                             }
 
-                            if (text1.startsWith("{\"clickEvent\":{\"action\":\"run_command\",\"value\":\"")) {
-                                String line11 = text1.replaceAll("^\\Q{\"clickEvent\":{\"action\":\"run_command\",\"value\":\"\\E", "");
-                                //String line12 = line11.substring(line11.lastIndexOf("},\"text\":\"")).replaceFirst("},\"text\":", "").replaceFirst("}$", "");
-                                line11 = line11.replaceAll(line11.substring(line11.lastIndexOf("},\"text\":\"")) + "$", "");
-
-                                sender.sendMessage(" §bLine1: コマンド: \"/" + line11);
-                            } else {
-                                sender.sendMessage(" §cLine1にコマンドは設定されていません。");
-                            }
-
-                            if (text2.startsWith("{\"clickEvent\":{\"action\":\"run_command\",\"value\":\"")) {
-                                String line21 = text2.replaceAll("^\\Q{\"clickEvent\":{\"action\":\"run_command\",\"value\":\"\\E", "");
-                                //String line22 = line21.substring(line21.lastIndexOf("},\"text\":\"")).replaceFirst("},\"text\":", "").replaceFirst("}$", "");
-                                line21 = line21.replaceAll(line21.substring(line21.lastIndexOf("},\"text\":\"")) + "$", "");
-
-                                sender.sendMessage(" §bLine2: コマンド: \"/" + line21);
-                            } else {
-                                sender.sendMessage(" §cLine2にコマンドは設定されていません。");
-                            }
-
-                            if (text3.startsWith("{\"clickEvent\":{\"action\":\"run_command\",\"value\":\"")) {
-                                String line31 = text3.replaceAll("^\\Q{\"clickEvent\":{\"action\":\"run_command\",\"value\":\"\\E", "");
-                                //String line32 = line31.substring(line31.lastIndexOf("},\"text\":\"")).replaceFirst("},\"text\":", "").replaceFirst("}$", "");
-                                line31 = line31.replaceAll(line31.substring(line31.lastIndexOf("},\"text\":\"")) + "$", "");
-
-                                sender.sendMessage(" §bLine3: コマンド: \"/" + line31);
-                            } else {
-                                sender.sendMessage(" §cLine3にコマンドは設定されていません。");
-                            }
-
-                            if (text4.startsWith("{\"clickEvent\":{\"action\":\"run_command\",\"value\":\"")) {
-                                String line41 = text4.replaceAll("^\\Q{\"clickEvent\":{\"action\":\"run_command\",\"value\":\"\\E", "");
-                                //String line42 = line41.substring(line41.lastIndexOf("},\"text\":\"")).replaceFirst("},\"text\":", "").replaceFirst("}$", "");
-                                line41 = line41.replaceAll(line41.substring(line41.lastIndexOf("},\"text\":\"")) + "$", "");
-
-                                sender.sendMessage(" §bLine4: コマンド: \"/" + line41);
-                            } else {
-                                sender.sendMessage(" §cLine4にコマンドは設定されていません。");
+                            for (int i = 1; i <= 4; i++) {
+                                String text = signUtil.getCommand(target, i);
+                                if (text != null) {
+                                    sender.sendMessage(" §bLine" + i + ": コマンド: \"/" + text);
+                                } else {
+                                    sender.sendMessage(" §cLine" + i + "にコマンドは設定されていません。");
+                                }
                             }
                             return true;
                         }
