@@ -186,59 +186,64 @@ public class SignInCommand extends JavaPlugin {
                             sender.sendMessage("§a[SignInCommand] §b" + target.getX() + " " + target.getY() + " " + target.getZ()
                                 + " の看板");
 
-                            TextComponent message = new TextComponent(/*"§a[SignInCommand] */" §b/Dataを実行する");
+                            TextComponent message = new TextComponent(" §b/Dataを実行する");
                             message.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text("§aクリックで§b\"/data\"§aを実行")));
                             message.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/data get block "
                                 + target.getX() + " " + target.getY() + " " + target.getZ()));
                             sender.spigot().sendMessage(message);
 
-                            if (!(NBTEditor.getString(target, "Text1").startsWith("{\"clickEvent\":{\"action\":\"run_command\",\"value\":\"")
-                                || NBTEditor.getString(target, "Text2").startsWith("{\"clickEvent\":{\"action\":\"run_command\",\"value\":\"")
-                                || NBTEditor.getString(target, "Text3").startsWith("{\"clickEvent\":{\"action\":\"run_command\",\"value\":\"")
-                                || NBTEditor.getString(target, "Text4").startsWith("{\"clickEvent\":{\"action\":\"run_command\",\"value\":\"")
+                            String text1 = NBTEditor.getString(target, "Text1");
+                            String text2 = NBTEditor.getString(target, "Text2");
+                            String text3 = NBTEditor.getString(target, "Text3");
+                            String text4 = NBTEditor.getString(target, "Text4");
+
+                            if (!(text1.startsWith("{\"clickEvent\":{\"action\":\"run_command\",\"value\":\"")
+                                || text2.startsWith("{\"clickEvent\":{\"action\":\"run_command\",\"value\":\"")
+                                || text3.startsWith("{\"clickEvent\":{\"action\":\"run_command\",\"value\":\"")
+                                || text4.startsWith("{\"clickEvent\":{\"action\":\"run_command\",\"value\":\"")
                             )) {
-                                sender.sendMessage(/*"§a[SignInCommand] */"§c この看板にコマンドは設定されていません。");
+                                sender.sendMessage("§c この看板にコマンドは設定されていません。");
                                 return true;
                             }
 
-                            if (NBTEditor.getString(target, "Text1").startsWith("{\"clickEvent\":{\"action\":\"run_command\",\"value\":\"")) {
-                                String line11 = NBTEditor.getString(target, "Text1").replaceAll("^\\Q{\"clickEvent\":{\"action\":\"run_command\",\"value\":\"\\E", "");
+                            if (text1.startsWith("{\"clickEvent\":{\"action\":\"run_command\",\"value\":\"")) {
+                                String line11 = text1.replaceAll("^\\Q{\"clickEvent\":{\"action\":\"run_command\",\"value\":\"\\E", "");
                                 //String line12 = line11.substring(line11.lastIndexOf("},\"text\":\"")).replaceFirst("},\"text\":", "").replaceFirst("}$", "");
                                 line11 = line11.replaceAll(line11.substring(line11.lastIndexOf("},\"text\":\"")) + "$", "");
 
-                                sender.sendMessage(/*"§a[SignInCommand] */" §bLine1: コマンド: \"/" + line11);
+                                sender.sendMessage(" §bLine1: コマンド: \"/" + line11);
                             } else {
-                                sender.sendMessage(/*"§a[SignInCommand] */" §cLine1にコマンドは設定されていません。");
+                                sender.sendMessage(" §cLine1にコマンドは設定されていません。");
                             }
 
-                            if (NBTEditor.getString(target, "Text2").startsWith("{\"clickEvent\":{\"action\":\"run_command\",\"value\":\"")) {
-                                String line21 = NBTEditor.getString(target, "Text2").replaceAll("^\\Q{\"clickEvent\":{\"action\":\"run_command\",\"value\":\"\\E", "");
+                            if (text2.startsWith("{\"clickEvent\":{\"action\":\"run_command\",\"value\":\"")) {
+                                String line21 = text2.replaceAll("^\\Q{\"clickEvent\":{\"action\":\"run_command\",\"value\":\"\\E", "");
                                 //String line22 = line21.substring(line21.lastIndexOf("},\"text\":\"")).replaceFirst("},\"text\":", "").replaceFirst("}$", "");
                                 line21 = line21.replaceAll(line21.substring(line21.lastIndexOf("},\"text\":\"")) + "$", "");
 
-                                sender.sendMessage(/*"§a[SignInCommand] */" §bLine2: コマンド: \"/" + line21);
+                                sender.sendMessage(" §bLine2: コマンド: \"/" + line21);
                             } else {
-                                sender.sendMessage(/*"§a[SignInCommand] */" §cLine2にコマンドは設定されていません。");
+                                sender.sendMessage(" §cLine2にコマンドは設定されていません。");
                             }
 
-                            if (NBTEditor.getString(target, "Text3").startsWith("{\"clickEvent\":{\"action\":\"run_command\",\"value\":\"")) {
-                                String line31 = NBTEditor.getString(target, "Text3").replaceAll("^\\Q{\"clickEvent\":{\"action\":\"run_command\",\"value\":\"\\E", "");
+                            if (text3.startsWith("{\"clickEvent\":{\"action\":\"run_command\",\"value\":\"")) {
+                                String line31 = text3.replaceAll("^\\Q{\"clickEvent\":{\"action\":\"run_command\",\"value\":\"\\E", "");
                                 //String line32 = line31.substring(line31.lastIndexOf("},\"text\":\"")).replaceFirst("},\"text\":", "").replaceFirst("}$", "");
                                 line31 = line31.replaceAll(line31.substring(line31.lastIndexOf("},\"text\":\"")) + "$", "");
 
-                                sender.sendMessage(/*"§a[SignInCommand] */" §bLine3: コマンド: \"/" + line31);
+                                sender.sendMessage(" §bLine3: コマンド: \"/" + line31);
                             } else {
-                                sender.sendMessage(/*"§a[SignInCommand] */" §cLine3にコマンドは設定されていません。");
+                                sender.sendMessage(" §cLine3にコマンドは設定されていません。");
                             }
 
-                            if (NBTEditor.getString(target, "Text4").startsWith("{\"clickEvent\":{\"action\":\"run_command\",\"value\":\"")) {
-                                String line41 = NBTEditor.getString(target, "Text4").replaceAll("^\\Q{\"clickEvent\":{\"action\":\"run_command\",\"value\":\"\\E", "");
+                            if (text4.startsWith("{\"clickEvent\":{\"action\":\"run_command\",\"value\":\"")) {
+                                String line41 = text4.replaceAll("^\\Q{\"clickEvent\":{\"action\":\"run_command\",\"value\":\"\\E", "");
                                 //String line42 = line41.substring(line41.lastIndexOf("},\"text\":\"")).replaceFirst("},\"text\":", "").replaceFirst("}$", "");
                                 line41 = line41.replaceAll(line41.substring(line41.lastIndexOf("},\"text\":\"")) + "$", "");
 
-                                sender.sendMessage(/*"§a[SignInCommand] */" §bLine4: コマンド: \"/" + line41);
+                                sender.sendMessage(" §bLine4: コマンド: \"/" + line41);
                             } else {
-                                sender.sendMessage(/*"§a[SignInCommand] */" §cLine4にコマンドは設定されていません。");
+                                sender.sendMessage(" §cLine4にコマンドは設定されていません。");
                             }
                             return true;
                         }
