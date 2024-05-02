@@ -9,7 +9,7 @@ commands:
     aliases: [sc, signincommand, signcommand]
     permission: signincommand.setup
     permission-message: Unknown command. Type "/help" for help.
-parmission:
+permission:
   signincommand:
     default: op
     children:
@@ -17,4 +17,4 @@ parmission:
   signincommand.setup:
     default: op
     description: /sic command.
-default-parmission: op
+default-permission: op
