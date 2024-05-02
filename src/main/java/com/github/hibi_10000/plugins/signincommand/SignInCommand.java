@@ -17,26 +17,25 @@ import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.chat.hover.content.Text;
 
 public class SignInCommand extends JavaPlugin {
-    private SignUtil signUtil = new SignUtil();
+    private final SignUtil signUtil = new SignUtil();
 
     @Override
-    public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-        if (cmd.getName().equalsIgnoreCase("sic")) {
+    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+        if (command.getName().equalsIgnoreCase("sic")) {
+            if (!sender.hasPermission("signincommand.setup")) {
+                sender.sendMessage("§cUnknown command. Type \"/help\" for help.");
+                return false;
+            }
+            if (!sender.isOp()) {
+                sender.sendMessage("§a[SignInCommand] §cこのコマンドはサーバーオペレーターのみ使用できます。");
+                return false;
+            }
+
             if (args.length == 0) {
                 TextComponent cmdhelp = new TextComponent("§a[SignInCommand] §cコマンドが間違っています。§b/" + label + " help §eで使用法を表示します。");
                 cmdhelp.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text("§aクリックで§b\"/" + label + " help\"§aを実行")));
                 cmdhelp.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/" + label + " help"));
                 sender.spigot().sendMessage(cmdhelp);
-                return false;
-            }
-
-            if (!sender.hasPermission("signincommand.setup")) {
-                sender.sendMessage("Unknown command. Type \"/help\" for help.");
-                return false;
-            }
-
-            if (!sender.isOp()) {
-                sender.sendMessage("§a[SignInCommand] §cこのコマンドはサーバーオペレーターのみ使用できます。");
                 return false;
             }
 
