@@ -143,7 +143,7 @@ public class SignInCommand extends JavaPlugin {
                     sender.spigot().sendMessage(cmdhelp);
                     return false;
                 }
-                System.out.println("§a[SignInCommand] §cこのコマンドはコンソールでは実行できません。");
+                sender.sendMessage("§a[SignInCommand] §cこのコマンドはコンソールでは実行できません。");
                 return false;
             } else if (args[0].equalsIgnoreCase("delete")) {
                 if (sender instanceof Player) {
@@ -173,7 +173,7 @@ public class SignInCommand extends JavaPlugin {
                     sender.spigot().sendMessage(cmdhelp);
                     return false;
                 }
-                System.out.println("§a[SignInCommand] §cこのコマンドはコンソールでは実行できません。");
+                sender.sendMessage("§a[SignInCommand] §cこのコマンドはコンソールでは実行できません。");
                 return false;
             } else if (args[0].equalsIgnoreCase("list")) {
                 if (sender instanceof Player) {
@@ -215,7 +215,7 @@ public class SignInCommand extends JavaPlugin {
                     sender.spigot().sendMessage(cmdhelp);
                     return false;
                 }
-                System.out.println("§a[SignInCommand] §cこのコマンドはコンソールでは実行できません。");
+                sender.sendMessage("§a[SignInCommand] §cこのコマンドはコンソールでは実行できません。");
                 return false;
             }
             TextComponent cmdhelp = new TextComponent("§a[SignInCommand] §cコマンドが間違っています。§b/" + label + " help §eで使用法を表示します。");
