@@ -110,16 +110,12 @@ public class SignInCommand extends JavaPlugin {
                                 return false;
                             }
 
-                            String incmd = args[2].replace("/", "");
-                            int roopargs = 3;
-                            while (!(roopargs == args.length || args.length == 3)) {
-                                incmd = incmd + " " + args[roopargs];
-                                roopargs++;
+                            String incmd = args[2].replaceFirst("^/", "");
+                            if (args.length > 3) {
+                                for (int roopargs = 3; roopargs <= args.length; roopargs++) {
+                                    incmd = incmd + " " + args[roopargs];
+                                }
                             }
-                            while (incmd.endsWith("\\")) {
-                                incmd = incmd.replaceAll("\\\\$", "");
-                            }
-                            incmd = incmd.replace("\"", "");
 
                             if (args[1].equals("1") || args[1].equals("2") || args[1].equals("3") || args[1].equals("4")) {
                                 int line = Integer.parseInt(args[1]);
