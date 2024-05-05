@@ -193,23 +193,23 @@ public class SignInCommand extends JavaPlugin {
 
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
-        if (command.getName().equalsIgnoreCase("sic")) return null;
-        if (sender.hasPermission("signincommand.setup")) return Collections.emptyList();
-        if (args.length == 2) {
+        if (!command.getName().equalsIgnoreCase("sic")) return null;
+        if (!sender.hasPermission("signincommand.setup")) return Collections.emptyList();
+        if (args.length == 3) {
+            if (args[2].startsWith("/")) {
+                return Collections.emptyList();
+            } else if ((args[1].equalsIgnoreCase("1") || args[1].equalsIgnoreCase("2") || args[1].equalsIgnoreCase("3") || args[1].equalsIgnoreCase("4"))
+                && args[0].equalsIgnoreCase("set")) {
+                return Collections.singletonList("/");
+            }
+            return Collections.emptyList();
+        } else if (args.length == 2) {
             if (args[0].equalsIgnoreCase("set") || args[0].equalsIgnoreCase("delete") || args[0].equalsIgnoreCase("help") || args[0].equalsIgnoreCase("list")
             ) {
                 if (args[0].equalsIgnoreCase("help") || args[0].equalsIgnoreCase("list")) {
                     return Collections.emptyList();
                 }
                 return Arrays.asList("1", "2", "3", "4");
-            }
-            return Collections.emptyList();
-        } else if (args.length == 3) {
-            if (args[2].startsWith("/")) {
-                return Collections.emptyList();
-            } else if ((args[1].equalsIgnoreCase("1") || args[1].equalsIgnoreCase("2") || args[1].equalsIgnoreCase("3") || args[1].equalsIgnoreCase("4"))
-                && args[0].equalsIgnoreCase("set")) {
-                return Collections.singletonList("/");
             }
             return Collections.emptyList();
         } else if (args.length == 1) {
