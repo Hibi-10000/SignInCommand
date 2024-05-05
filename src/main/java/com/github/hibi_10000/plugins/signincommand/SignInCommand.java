@@ -116,16 +116,11 @@ public class SignInCommand extends JavaPlugin {
                     return false;
                 }
 
-                String incmd = args[2].replaceFirst("^/", "");
-                if (args.length > 3) {
-                    for (int roopargs = 3; roopargs <= args.length; roopargs++) {
-                        incmd = incmd + " " + args[roopargs];
-                    }
-                }
+                String inCommand = String.join(" ", Arrays.copyOfRange(args, 2, args.length)).replaceFirst("^/", "");
 
                 if (args[1].equals("1") || args[1].equals("2") || args[1].equals("3") || args[1].equals("4")) {
                     int line = Integer.parseInt(args[1]);
-                    signUtil.setCommand(target, line, incmd);
+                    signUtil.setCommand(target, line, inCommand);
                     sender.sendMessage("§a[SignInCommand] §b" + target.getX() + " " + target.getY() + " " + target.getZ()
                         + " の看板の" + args[1] + "行目にコマンドを§a設定§bしました。");
                     return true;
