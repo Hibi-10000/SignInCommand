@@ -87,54 +87,49 @@ public class SignInCommand extends JavaPlugin {
             Player p = (Player) sender;
             if (args.length >= 3) {
                 Block target = p.getTargetBlock(null, 4);
-                if (target.getType().name().contains("SIGN")
-                    /*target.getType() == Material.ACACIA_SIGN
-                        || target.getType() == Material.ACACIA_WALL_SIGN
-                        || target.getType() == Material.BIRCH_SIGN
-                        || target.getType() == Material.BIRCH_WALL_SIGN
-                        || target.getType() == Material.CRIMSON_SIGN
-                        || target.getType() == Material.CRIMSON_WALL_SIGN
-                        || target.getType() == Material.DARK_OAK_SIGN
-                        || target.getType() == Material.DARK_OAK_WALL_SIGN
-                        || target.getType() == Material.JUNGLE_SIGN
-                        || target.getType() == Material.JUNGLE_WALL_SIGN
-                        || target.getType() == Material.LEGACY_SIGN
-                        || target.getType() == Material.LEGACY_SIGN_POST
-                        || target.getType() == Material.LEGACY_WALL_SIGN
-                        || target.getType() == Material.OAK_SIGN
-                        || target.getType() == Material.OAK_WALL_SIGN
-                        || target.getType() == Material.SPRUCE_SIGN
-                        || target.getType() == Material.SPRUCE_WALL_SIGN
-                        || target.getType() == Material.WARPED_SIGN
-                        || target.getType() == Material.WARPED_WALL_SIGN*/) {
-
-                    if (!args[2].startsWith("/")) {
-                        sender.sendMessage("§a[SignInCommand] §c埋め込むコマンドにはコマンドの接頭辞\"/\"を必ず付けてください。");
-                        return false;
-                    }
-
-                    String incmd = args[2].replaceFirst("^/", "");
-                    if (args.length > 3) {
-                        for (int roopargs = 3; roopargs <= args.length; roopargs++) {
-                            incmd = incmd + " " + args[roopargs];
-                        }
-                    }
-
-                    if (args[1].equals("1") || args[1].equals("2") || args[1].equals("3") || args[1].equals("4")) {
-                        int line = Integer.parseInt(args[1]);
-                        signUtil.setCommand(target, line, incmd);
-                        sender.sendMessage("§a[SignInCommand] §b" + target.getX() + " " + target.getY() + " " + target.getZ()
-                            + " の看板の" + args[1] + "行目にコマンドを§a設定§bしました。");
-                        return true;
-                    }
-                    TextComponent cmdhelp = new TextComponent("§a[SignInCommand] §cコマンドの引数が間違っています。§b/" + label + " help §eで使用法を表示します。");
-                    cmdhelp.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text("§aクリックで§b\"/" + label + " help\"§aを実行")));
-                    cmdhelp.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/" + label + " help"));
-                    sender.spigot().sendMessage(cmdhelp);
+                if (!target.getType().name().contains("SIGN")
+                    /*target.getType() != Material.ACACIA_SIGN
+                        && target.getType() != Material.ACACIA_WALL_SIGN
+                        && target.getType() != Material.BIRCH_SIGN
+                        && target.getType() != Material.BIRCH_WALL_SIGN
+                        && target.getType() != Material.CRIMSON_SIGN
+                        && target.getType() != Material.CRIMSON_WALL_SIGN
+                        && target.getType() != Material.DARK_OAK_SIGN
+                        && target.getType() != Material.DARK_OAK_WALL_SIGN
+                        && target.getType() != Material.JUNGLE_SIGN
+                        && target.getType() != Material.JUNGLE_WALL_SIGN
+                        && target.getType() != Material.LEGACY_SIGN
+                        && target.getType() != Material.LEGACY_SIGN_POST
+                        && target.getType() != Material.LEGACY_WALL_SIGN
+                        && target.getType() != Material.OAK_SIGN
+                        && target.getType() != Material.OAK_WALL_SIGN
+                        && target.getType() != Material.SPRUCE_SIGN
+                        && target.getType() != Material.SPRUCE_WALL_SIGN
+                        && target.getType() != Material.WARPED_SIGN
+                        && target.getType() != Material.WARPED_WALL_SIGN*/) {
+                    sender.sendMessage("§a[SignInCommand] §e看板にカーソルを合わせて実行してください。");
                     return false;
                 }
-                sender.sendMessage("§a[SignInCommand] §e看板にカーソルを合わせて実行してください。");
-                return false;
+
+                if (!args[2].startsWith("/")) {
+                    sender.sendMessage("§a[SignInCommand] §c埋め込むコマンドにはコマンドの接頭辞\"/\"を必ず付けてください。");
+                    return false;
+                }
+
+                String incmd = args[2].replaceFirst("^/", "");
+                if (args.length > 3) {
+                    for (int roopargs = 3; roopargs <= args.length; roopargs++) {
+                        incmd = incmd + " " + args[roopargs];
+                    }
+                }
+
+                if (args[1].equals("1") || args[1].equals("2") || args[1].equals("3") || args[1].equals("4")) {
+                    int line = Integer.parseInt(args[1]);
+                    signUtil.setCommand(target, line, incmd);
+                    sender.sendMessage("§a[SignInCommand] §b" + target.getX() + " " + target.getY() + " " + target.getZ()
+                        + " の看板の" + args[1] + "行目にコマンドを§a設定§bしました。");
+                    return true;
+                }
             }
         } else if (args[0].equalsIgnoreCase("delete")) {
             if (!(sender instanceof Player)) {
@@ -144,22 +139,17 @@ public class SignInCommand extends JavaPlugin {
             Player p = (Player) sender;
             if (args.length >= 2) {
                 Block target = p.getTargetBlock(null, 4);
-                if (target.getType().name().contains("SIGN")) {
-                    if (args[1].equals("1") || args[1].equals("2") || args[1].equals("3") || args[1].equals("4")) {
-                        int line = Integer.parseInt(args[1]);
-                        signUtil.removeCommand(target, line);
-                        sender.sendMessage("§a[SignInCommand] §b" + target.getX() + " " + target.getY() + " " + target.getZ()
-                            + " の看板の" + args[1] + "行目のコマンドを§c削除§bしました。");
-                        return true;
-                    }
-                    TextComponent cmdhelp = new TextComponent("§a[SignInCommand] §cコマンドの引数が間違っています。§b/" + label + " help §eで使用法を表示します。");
-                    cmdhelp.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text("§aクリックで§b\"/" + label + " help\"§aを実行")));
-                    cmdhelp.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/" + label + " help"));
-                    sender.spigot().sendMessage(cmdhelp);
+                if (!target.getType().name().contains("SIGN")) {
+                    sender.sendMessage("§a[SignInCommand] §e看板にカーソルを合わせて実行してください。");
                     return false;
                 }
-                sender.sendMessage("§a[SignInCommand] §e看板にカーソルを合わせて実行してください。");
-                return false;
+                if (args[1].equals("1") || args[1].equals("2") || args[1].equals("3") || args[1].equals("4")) {
+                    int line = Integer.parseInt(args[1]);
+                    signUtil.removeCommand(target, line);
+                    sender.sendMessage("§a[SignInCommand] §b" + target.getX() + " " + target.getY() + " " + target.getZ()
+                        + " の看板の" + args[1] + "行目のコマンドを§c削除§bしました。");
+                    return true;
+                }
             }
         } else if (args[0].equalsIgnoreCase("list")) {
             if (!(sender instanceof Player)) {
