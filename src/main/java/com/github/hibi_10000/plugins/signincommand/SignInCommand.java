@@ -21,14 +21,6 @@ public class SignInCommand extends JavaPlugin {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!command.getName().equalsIgnoreCase("sic")) return false;
-        if (!sender.hasPermission("signincommand.setup")) {
-            sender.sendMessage("§cUnknown command. Type \"/help\" for help.");
-            return false;
-        }
-        if (!sender.isOp()) {
-            sender.sendMessage("§a[SignInCommand] §cこのコマンドはサーバーオペレーターのみ使用できます。");
-            return false;
-        }
 
         if (args.length == 0) {
             TextComponent cmdhelp = new TextComponent("§a[SignInCommand] §cコマンドが間違っています。§b/" + label + " help §eで使用法を表示します。");
@@ -194,7 +186,6 @@ public class SignInCommand extends JavaPlugin {
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
         if (!command.getName().equalsIgnoreCase("sic")) return null;
-        if (!sender.hasPermission("signincommand.setup")) return Collections.emptyList();
         if (args.length == 3) {
             if (args[0].equalsIgnoreCase("set")
                 && (args[1].equals("1") || args[1].equals("2") || args[1].equals("3") || args[1].equals("4"))
