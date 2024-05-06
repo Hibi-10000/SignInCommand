@@ -32,7 +32,7 @@ public class SignInCommand extends JavaPlugin {
 
         if (args[0].equalsIgnoreCase("help")) {
             sender.sendMessage("");
-            sender.sendMessage("§a[SignInCommand v1.0.0] §6Help");
+            sender.sendMessage("§a[SignInCommand] §6Help");
             sender.sendMessage("§6 Command§r:");
 
             TextComponent cmd1 = new TextComponent(" - §b/" + label + " set [Line:<1|2|3|4>] [InCommand:/<command>]");
@@ -68,8 +68,6 @@ public class SignInCommand extends JavaPlugin {
 
             sender.sendMessage("");
 
-            //sender.sendMessage(" §aDistribution:§b https://dev.bukkit.org/projects/sign-in-command");
-            //sender.sendMessage(" §bCreatedBy: Hibi_10000");
             return true;
         } else if (args[0].equalsIgnoreCase("set")) {
             if (!(sender instanceof Player)){
