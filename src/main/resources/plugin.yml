@@ -5,8 +5,8 @@ author: Hibi_10000
 api-version: 1.16
 website: https://dev.bukkit.org/projects/sign-in-command
 commands:
-  sic:
-    aliases: [sc, signincommand, signcommand]
+  signincommand:
+    aliases: [sc, sic, signcommand]
     permission: signincommand.setup
     permission-message: Unknown command. Type "/help" for help.
 permission:
@@ -16,5 +16,5 @@ permission:
       signincommand.setup: true
   signincommand.setup:
     default: op
-    description: /sic command.
+    description: Use /signincommand command.
 default-permission: op
