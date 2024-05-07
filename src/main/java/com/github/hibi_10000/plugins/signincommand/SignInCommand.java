@@ -17,18 +17,12 @@ import net.md_5.bungee.api.chat.hover.content.Text;
 
 public class SignInCommand extends JavaPlugin {
     private final SignUtil signUtil = new SignUtil();
+    private final Util util = new Util();
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!command.getName().equalsIgnoreCase("signincommand")) return false;
-
-        if (args.length == 0) {
-            TextComponent cmdhelp = new TextComponent("§a[SignInCommand] §cコマンドが間違っています。§b/" + label + " help §eで使用法を表示します。");
-            cmdhelp.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text("§aクリックで§b\"/" + label + " help\"§aを実行")));
-            cmdhelp.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/" + label + " help"));
-            sender.spigot().sendMessage(cmdhelp);
-            return false;
-        }
+        if (args.length == 0) return util.commandInvalid(sender, label);
 
         if (args[0].equalsIgnoreCase("help")) {
             sender.sendMessage("");
@@ -174,11 +168,7 @@ public class SignInCommand extends JavaPlugin {
                 return false;
             }
         }
-        TextComponent cmdhelp = new TextComponent("§a[SignInCommand] §cコマンドが間違っています。§b/" + label + " help §eで使用法を表示します。");
-        cmdhelp.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text("§aクリックで§b\"/" + label + " help\"§aを実行")));
-        cmdhelp.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/" + label + " help"));
-        sender.spigot().sendMessage(cmdhelp);
-        return false;
+        return util.commandInvalid(sender, label);
     }
 
     @Override
