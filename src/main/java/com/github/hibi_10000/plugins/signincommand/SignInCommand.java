@@ -68,23 +68,21 @@ public class SignInCommand extends JavaPlugin {
                 sender.sendMessage("§a[SignInCommand] §cこのコマンドはコンソールでは実行できません。");
                 return false;
             }
-            Player p = (Player) sender;
             if (args.length >= 3) {
-                Block target = p.getTargetBlock(null, 4);
-                if (!signUtil.checkSign(target)) {
-                    sender.sendMessage("§a[SignInCommand] §e看板にカーソルを合わせて実行してください。");
-                    return false;
-                }
-
-                if (!args[2].startsWith("/")) {
-                    sender.sendMessage("§a[SignInCommand] §c埋め込むコマンドにはコマンドの接頭辞\"/\"を必ず付けてください。");
-                    return false;
-                }
-
-                String inCommand = String.join(" ", Arrays.copyOfRange(args, 2, args.length)).replaceFirst("^/", "");
-
                 if (args[1].equals("1") || args[1].equals("2") || args[1].equals("3") || args[1].equals("4")) {
+                    Player p = (Player) sender;
+                    Block target = p.getTargetBlock(null, 4);
+                    if (!signUtil.checkSign(target)) {
+                        sender.sendMessage("§a[SignInCommand] §e看板にカーソルを合わせて実行してください。");
+                        return false;
+                    }
+                    if (!args[2].startsWith("/")) {
+                        sender.sendMessage("§a[SignInCommand] §c埋め込むコマンドにはコマンドの接頭辞\"/\"を必ず付けてください。");
+                        return false;
+                    }
+
                     int line = Integer.parseInt(args[1]);
+                    String inCommand = String.join(" ", Arrays.copyOfRange(args, 2, args.length)).replaceFirst("^/", "");
                     signUtil.setCommand(target, line, inCommand);
                     sender.sendMessage("§a[SignInCommand] §b" + target.getX() + " " + target.getY() + " " + target.getZ()
                         + " の看板の" + args[1] + "行目にコマンドを§a設定§bしました。");
@@ -96,14 +94,14 @@ public class SignInCommand extends JavaPlugin {
                 sender.sendMessage("§a[SignInCommand] §cこのコマンドはコンソールでは実行できません。");
                 return false;
             }
-            Player p = (Player) sender;
             if (args.length >= 2) {
-                Block target = p.getTargetBlock(null, 4);
-                if (!signUtil.checkSign(target)) {
-                    sender.sendMessage("§a[SignInCommand] §e看板にカーソルを合わせて実行してください。");
-                    return false;
-                }
                 if (args[1].equals("1") || args[1].equals("2") || args[1].equals("3") || args[1].equals("4")) {
+                    Player p = (Player) sender;
+                    Block target = p.getTargetBlock(null, 4);
+                    if (!signUtil.checkSign(target)) {
+                        sender.sendMessage("§a[SignInCommand] §e看板にカーソルを合わせて実行してください。");
+                        return false;
+                    }
                     int line = Integer.parseInt(args[1]);
                     signUtil.removeCommand(target, line);
                     sender.sendMessage("§a[SignInCommand] §b" + target.getX() + " " + target.getY() + " " + target.getZ()
@@ -116,8 +114,8 @@ public class SignInCommand extends JavaPlugin {
                 sender.sendMessage("§a[SignInCommand] §cこのコマンドはコンソールでは実行できません。");
                 return false;
             }
-            Player p = (Player) sender;
             if (args.length == 1) {
+                Player p = (Player) sender;
                 Block target = p.getTargetBlock(null, 4);
                 if (!signUtil.checkSign(target)) {
                     sender.sendMessage("§a[SignInCommand] §e看板にカーソルを合わせて実行してください。");
