@@ -71,26 +71,7 @@ public class SignInCommand extends JavaPlugin {
             Player p = (Player) sender;
             if (args.length >= 3) {
                 Block target = p.getTargetBlock(null, 4);
-                if (!target.getType().name().contains("SIGN")
-                    /*target.getType() != Material.ACACIA_SIGN
-                        && target.getType() != Material.ACACIA_WALL_SIGN
-                        && target.getType() != Material.BIRCH_SIGN
-                        && target.getType() != Material.BIRCH_WALL_SIGN
-                        && target.getType() != Material.CRIMSON_SIGN
-                        && target.getType() != Material.CRIMSON_WALL_SIGN
-                        && target.getType() != Material.DARK_OAK_SIGN
-                        && target.getType() != Material.DARK_OAK_WALL_SIGN
-                        && target.getType() != Material.JUNGLE_SIGN
-                        && target.getType() != Material.JUNGLE_WALL_SIGN
-                        && target.getType() != Material.LEGACY_SIGN
-                        && target.getType() != Material.LEGACY_SIGN_POST
-                        && target.getType() != Material.LEGACY_WALL_SIGN
-                        && target.getType() != Material.OAK_SIGN
-                        && target.getType() != Material.OAK_WALL_SIGN
-                        && target.getType() != Material.SPRUCE_SIGN
-                        && target.getType() != Material.SPRUCE_WALL_SIGN
-                        && target.getType() != Material.WARPED_SIGN
-                        && target.getType() != Material.WARPED_WALL_SIGN*/) {
+                if (!signUtil.checkSign(target)) {
                     sender.sendMessage("§a[SignInCommand] §e看板にカーソルを合わせて実行してください。");
                     return false;
                 }
@@ -118,7 +99,7 @@ public class SignInCommand extends JavaPlugin {
             Player p = (Player) sender;
             if (args.length >= 2) {
                 Block target = p.getTargetBlock(null, 4);
-                if (!target.getType().name().contains("SIGN")) {
+                if (!signUtil.checkSign(target)) {
                     sender.sendMessage("§a[SignInCommand] §e看板にカーソルを合わせて実行してください。");
                     return false;
                 }
@@ -138,34 +119,34 @@ public class SignInCommand extends JavaPlugin {
             Player p = (Player) sender;
             if (args.length == 1) {
                 Block target = p.getTargetBlock(null, 4);
-                if (target.getType().name().contains("SIGN")) {
+                if (!signUtil.checkSign(target)) {
+                    sender.sendMessage("§a[SignInCommand] §e看板にカーソルを合わせて実行してください。");
+                    return false;
+                }
 
-                    sender.sendMessage("§a[SignInCommand] §b" + target.getX() + " " + target.getY() + " " + target.getZ()
-                        + " の看板");
+                sender.sendMessage("§a[SignInCommand] §b" + target.getX() + " " + target.getY() + " " + target.getZ()
+                    + " の看板");
 
-                    TextComponent message = new TextComponent(" §b/Dataを実行する");
-                    message.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text("§aクリックで§b\"/data\"§aを実行")));
-                    message.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/data get block "
-                        + target.getX() + " " + target.getY() + " " + target.getZ()));
-                    sender.spigot().sendMessage(message);
+                TextComponent message = new TextComponent(" §b/Dataを実行する");
+                message.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text("§aクリックで§b\"/data\"§aを実行")));
+                message.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/data get block "
+                    + target.getX() + " " + target.getY() + " " + target.getZ()));
+                sender.spigot().sendMessage(message);
 
-                    if (!signUtil.hasCommand(target)) {
-                        sender.sendMessage("§c この看板にコマンドは設定されていません。");
-                        return true;
-                    }
-
-                    for (int i = 1; i <= 4; i++) {
-                        String text = signUtil.getCommand(target, i);
-                        if (text != null) {
-                            sender.sendMessage(" §bLine" + i + ": コマンド: \"/" + text);
-                        } else {
-                            sender.sendMessage(" §cLine" + i + "にコマンドは設定されていません。");
-                        }
-                    }
+                if (!signUtil.hasCommand(target)) {
+                    sender.sendMessage("§c この看板にコマンドは設定されていません。");
                     return true;
                 }
-                sender.sendMessage("§a[SignInCommand] §e看板にカーソルを合わせて実行してください。");
-                return false;
+
+                for (int i = 1; i <= 4; i++) {
+                    String text = signUtil.getCommand(target, i);
+                    if (text != null) {
+                        sender.sendMessage(" §bLine" + i + ": コマンド: \"/" + text);
+                    } else {
+                        sender.sendMessage(" §cLine" + i + "にコマンドは設定されていません。");
+                    }
+                }
+                return true;
             }
         }
         return util.commandInvalid(sender, label);

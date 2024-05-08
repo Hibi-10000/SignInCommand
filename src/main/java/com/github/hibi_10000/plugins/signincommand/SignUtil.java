@@ -9,6 +9,30 @@ import org.bukkit.block.Block;
 import org.bukkit.block.Sign;
 
 public class SignUtil {
+    public boolean checkSign(Block target) {
+        return target.getType().name().contains("SIGN");
+        /*target.getType() == Material.ACACIA_SIGN
+            || target.getType() == Material.ACACIA_WALL_SIGN
+            || target.getType() == Material.BIRCH_SIGN
+            || target.getType() == Material.BIRCH_WALL_SIGN
+            || target.getType() == Material.CRIMSON_SIGN
+            || target.getType() == Material.CRIMSON_WALL_SIGN
+            || target.getType() == Material.DARK_OAK_SIGN
+            || target.getType() == Material.DARK_OAK_WALL_SIGN
+            || target.getType() == Material.JUNGLE_SIGN
+            || target.getType() == Material.JUNGLE_WALL_SIGN
+            || target.getType() == Material.LEGACY_SIGN
+            || target.getType() == Material.LEGACY_SIGN_POST
+            || target.getType() == Material.LEGACY_WALL_SIGN
+            || target.getType() == Material.OAK_SIGN
+            || target.getType() == Material.OAK_WALL_SIGN
+            || target.getType() == Material.SPRUCE_SIGN
+            || target.getType() == Material.SPRUCE_WALL_SIGN
+            || target.getType() == Material.WARPED_SIGN
+            || target.getType() == Material.WARPED_WALL_SIGN*/
+        //return target.getState() instanceof Sign;
+    }
+
     public void setCommand(Block target, int line, String command) {
         Sign s = (Sign) target.getState();
         NBTEditor.set(target, "'" + getJsonText(s.getLine(line - 1), command) + "'", "Text" + line);
