@@ -49,9 +49,9 @@ public class SignInCommand extends JavaPlugin {
             cmd4.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/" + label + " help"));
             sender.spigot().sendMessage(cmd4);
 
-            //sender.sendMessage("");
-            //sender.sendMessage("§6 Permissons§r:");
-            //sender.sendMessage(" - §bsignincommand.setup");
+            sender.sendMessage("");
+            sender.sendMessage("§6 Permissions§r:");
+            sender.sendMessage(" -§b signincommand.command");
 
             sender.sendMessage("");
 

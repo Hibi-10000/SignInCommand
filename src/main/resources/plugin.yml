@@ -7,14 +7,14 @@ website: https://dev.bukkit.org/projects/sign-in-command
 commands:
   signincommand:
     aliases: [sc, sic, signcommand]
-    permission: signincommand.setup
+    permission: signincommand.command
     permission-message: Unknown command. Type "/help" for help.
 permission:
-  signincommand:
+  signincommand.*:
     default: op
     children:
-      signincommand.setup: true
-  signincommand.setup:
+      signincommand.command: true
+  signincommand.command:
     default: op
     description: Use /signincommand command.
 default-permission: op
