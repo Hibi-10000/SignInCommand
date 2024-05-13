@@ -14,4 +14,8 @@ public class Util {
         sender.spigot().sendMessage(help);
         return false;
     }
+
+    public void send(CommandSender sender, String message) {
+        sender.sendMessage("§a[SignInCommand] §r" + message);
+    }
 }

@@ -65,7 +65,7 @@ public class SignInCommand extends JavaPlugin {
             return true;
         } else if (args[0].equalsIgnoreCase("set")) {
             if (!(sender instanceof Player)){
-                sender.sendMessage("§a[SignInCommand] §cこのコマンドはコンソールでは実行できません。");
+                util.send(sender, "§cこのコマンドはコンソールでは実行できません。");
                 return false;
             }
             if (args.length >= 3) {
@@ -73,25 +73,25 @@ public class SignInCommand extends JavaPlugin {
                     Player p = (Player) sender;
                     Block target = p.getTargetBlock(null, 4);
                     if (!signUtil.checkSign(target)) {
-                        sender.sendMessage("§a[SignInCommand] §e看板にカーソルを合わせて実行してください。");
+                        util.send(sender, "§e看板にカーソルを合わせて実行してください。");
                         return false;
                     }
                     if (!args[2].startsWith("/")) {
-                        sender.sendMessage("§a[SignInCommand] §c埋め込むコマンドにはコマンドの接頭辞\"/\"を必ず付けてください。");
+                        util.send(sender, "§c埋め込むコマンドにはコマンドの接頭辞\"/\"を必ず付けてください。");
                         return false;
                     }
 
                     int line = Integer.parseInt(args[1]);
                     String inCommand = String.join(" ", Arrays.copyOfRange(args, 2, args.length)).replaceFirst("^/", "");
                     signUtil.setCommand(target, line, inCommand);
-                    sender.sendMessage("§a[SignInCommand] §b" + target.getX() + " " + target.getY() + " " + target.getZ()
+                    util.send(sender, "§b" + target.getX() + " " + target.getY() + " " + target.getZ()
                         + " の看板の" + args[1] + "行目にコマンドを§a設定§bしました。");
                     return true;
                 }
             }
         } else if (args[0].equalsIgnoreCase("delete")) {
             if (!(sender instanceof Player)) {
-                sender.sendMessage("§a[SignInCommand] §cこのコマンドはコンソールでは実行できません。");
+                util.send(sender, "§cこのコマンドはコンソールでは実行できません。");
                 return false;
             }
             if (args.length >= 2) {
@@ -99,31 +99,30 @@ public class SignInCommand extends JavaPlugin {
                     Player p = (Player) sender;
                     Block target = p.getTargetBlock(null, 4);
                     if (!signUtil.checkSign(target)) {
-                        sender.sendMessage("§a[SignInCommand] §e看板にカーソルを合わせて実行してください。");
+                        util.send(sender, "§e看板にカーソルを合わせて実行してください。");
                         return false;
                     }
                     int line = Integer.parseInt(args[1]);
                     signUtil.removeCommand(target, line);
-                    sender.sendMessage("§a[SignInCommand] §b" + target.getX() + " " + target.getY() + " " + target.getZ()
+                    util.send(sender, "§b" + target.getX() + " " + target.getY() + " " + target.getZ()
                         + " の看板の" + args[1] + "行目のコマンドを§c削除§bしました。");
                     return true;
                 }
             }
         } else if (args[0].equalsIgnoreCase("list")) {
             if (!(sender instanceof Player)) {
-                sender.sendMessage("§a[SignInCommand] §cこのコマンドはコンソールでは実行できません。");
+                util.send(sender, "§cこのコマンドはコンソールでは実行できません。");
                 return false;
             }
             if (args.length == 1) {
                 Player p = (Player) sender;
                 Block target = p.getTargetBlock(null, 4);
                 if (!signUtil.checkSign(target)) {
-                    sender.sendMessage("§a[SignInCommand] §e看板にカーソルを合わせて実行してください。");
+                    util.send(sender, "§e看板にカーソルを合わせて実行してください。");
                     return false;
                 }
 
-                sender.sendMessage("§a[SignInCommand] §b" + target.getX() + " " + target.getY() + " " + target.getZ()
-                    + " の看板");
+                util.send(sender, "§b" + target.getX() + " " + target.getY() + " " + target.getZ() + " の看板");
 
                 TextComponent message = new TextComponent(" §b/Dataを実行する");
                 message.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text("§aクリックで§b\"/data\"§aを実行")));
