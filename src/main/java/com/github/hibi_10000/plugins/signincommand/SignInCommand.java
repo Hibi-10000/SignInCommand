@@ -65,7 +65,7 @@ public class SignInCommand extends JavaPlugin {
             return true;
         } else if (args[0].equalsIgnoreCase("set")) {
             if (!(sender instanceof Player)){
-                util.send(sender, "§cこのコマンドはコンソールでは実行できません。");
+                util.sendError(sender, "このコマンドはコンソールでは実行できません。");
                 return false;
             }
             if (args.length >= 3) {
@@ -77,21 +77,20 @@ public class SignInCommand extends JavaPlugin {
                         return false;
                     }
                     if (!args[2].startsWith("/")) {
-                        util.send(sender, "§c埋め込むコマンドにはコマンドの接頭辞\"/\"を必ず付けてください。");
+                        util.sendError(sender, "埋め込むコマンドにはコマンドの接頭辞\"/\"を必ず付けてください。");
                         return false;
                     }
 
                     int line = Integer.parseInt(args[1]);
                     String inCommand = String.join(" ", Arrays.copyOfRange(args, 2, args.length)).replaceFirst("^/", "");
                     signUtil.setCommand(target, line, inCommand);
-                    util.send(sender, "§b" + target.getX() + " " + target.getY() + " " + target.getZ()
-                        + " の看板の" + args[1] + "行目にコマンドを§a設定§bしました。");
+                    util.send(sender, "%s %s %s の看板の%s行目にコマンドを§a設定§bしました。", target.getX(), target.getY(), target.getZ(), args[1]);
                     return true;
                 }
             }
         } else if (args[0].equalsIgnoreCase("delete")) {
             if (!(sender instanceof Player)) {
-                util.send(sender, "§cこのコマンドはコンソールでは実行できません。");
+                util.sendError(sender, "このコマンドはコンソールでは実行できません。");
                 return false;
             }
             if (args.length >= 2) {
@@ -104,14 +103,13 @@ public class SignInCommand extends JavaPlugin {
                     }
                     int line = Integer.parseInt(args[1]);
                     signUtil.removeCommand(target, line);
-                    util.send(sender, "§b" + target.getX() + " " + target.getY() + " " + target.getZ()
-                        + " の看板の" + args[1] + "行目のコマンドを§c削除§bしました。");
+                    util.send(sender, "%s %s %s の看板の%s行目のコマンドを§c削除§bしました。", target.getX(), target.getY(), target.getZ(), args[1]);
                     return true;
                 }
             }
         } else if (args[0].equalsIgnoreCase("list")) {
             if (!(sender instanceof Player)) {
-                util.send(sender, "§cこのコマンドはコンソールでは実行できません。");
+                util.sendError(sender, "このコマンドはコンソールでは実行できません。");
                 return false;
             }
             if (args.length == 1) {
@@ -122,7 +120,7 @@ public class SignInCommand extends JavaPlugin {
                     return false;
                 }
 
-                util.send(sender, "§b" + target.getX() + " " + target.getY() + " " + target.getZ() + " の看板");
+                util.send(sender, "%s %s %s の看板", target.getX(), target.getY(), target.getZ());
 
                 TextComponent message = new TextComponent(" §b/Dataを実行する");
                 message.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text("§aクリックで§b\"/data\"§aを実行")));
