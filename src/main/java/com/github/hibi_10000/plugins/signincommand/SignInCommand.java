@@ -73,7 +73,7 @@ public class SignInCommand extends JavaPlugin {
                     Player p = (Player) sender;
                     Block target = p.getTargetBlock(null, 4);
                     if (!signUtil.checkSign(target)) {
-                        util.send(sender, "§e看板にカーソルを合わせて実行してください。");
+                        util.send(sender, 'e', "看板にカーソルを合わせて実行してください。");
                         return false;
                     }
                     if (!args[2].startsWith("/")) {
@@ -98,7 +98,7 @@ public class SignInCommand extends JavaPlugin {
                     Player p = (Player) sender;
                     Block target = p.getTargetBlock(null, 4);
                     if (!signUtil.checkSign(target)) {
-                        util.send(sender, "§e看板にカーソルを合わせて実行してください。");
+                        util.send(sender, 'e', "看板にカーソルを合わせて実行してください。");
                         return false;
                     }
                     int line = Integer.parseInt(args[1]);
@@ -116,7 +116,7 @@ public class SignInCommand extends JavaPlugin {
                 Player p = (Player) sender;
                 Block target = p.getTargetBlock(null, 4);
                 if (!signUtil.checkSign(target)) {
-                    util.send(sender, "§e看板にカーソルを合わせて実行してください。");
+                    util.send(sender, 'e', "看板にカーソルを合わせて実行してください。");
                     return false;
                 }
 

@@ -17,14 +17,14 @@ public class Util {
         return false;
     }
 
-    public void send(CommandSender sender, String message) {
-        sender.sendMessage("§a[SignInCommand] §r" + message);
-    }
-
     private void send(CommandSender sender, ChatColor color, String message, Object... args) {
         TranslatableComponent component = new TranslatableComponent(message, args);
         component.setColor(color);
         sender.spigot().sendMessage(new TextComponent("§a[SignInCommand] "), component);
+    }
+
+    public void send(CommandSender sender, char colorCode, String message, Object... args) {
+        send(sender, ChatColor.getByChar(colorCode), message, args);
     }
 
     public void send(CommandSender sender, String message, Object... args) {
