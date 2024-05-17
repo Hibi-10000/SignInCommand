@@ -84,7 +84,7 @@ public class SignInCommand extends JavaPlugin {
                     int line = Integer.parseInt(args[1]);
                     String inCommand = String.join(" ", Arrays.copyOfRange(args, 2, args.length)).replaceFirst("^/", "");
                     signUtil.setCommand(target, line, inCommand);
-                    util.send(sender, "%s %s %s の看板の%s行目にコマンドを§a設定§bしました。", target.getX(), target.getY(), target.getZ(), args[1]);
+                    util.sendWithLog(sender, "%s %s %s の看板の%s行目にコマンドを§a設定§bしました。", target.getX(), target.getY(), target.getZ(), args[1]);
                     return true;
                 }
             }
@@ -103,7 +103,7 @@ public class SignInCommand extends JavaPlugin {
                     }
                     int line = Integer.parseInt(args[1]);
                     signUtil.removeCommand(target, line);
-                    util.send(sender, "%s %s %s の看板の%s行目のコマンドを§c削除§bしました。", target.getX(), target.getY(), target.getZ(), args[1]);
+                    util.sendWithLog(sender, "%s %s %s の看板の%s行目のコマンドを§c削除§bしました。", target.getX(), target.getY(), target.getZ(), args[1]);
                     return true;
                 }
             }
